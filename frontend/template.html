@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Controle - Segurança Máxima</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; }
+        
+        body {
+            background-color: #0b0f19;
+            color: #e2e8f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .dashboard {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto 1fr auto;
+            gap: 20px;
+            padding: 25px;
+        }
+
+        /* Cabecalho */
+        .header {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #1f2937;
+            padding-bottom: 15px;
+        }
+
+        .header h1 {
+            color: #10b981;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Area da Câmera (Esquerda) */
+        .camera-section {
+            background: #1f2937;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .camera-wrapper {
+            width: 100%;
+            height: 350px;
+            background: #000;
+            border: 2px solid #374151;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+
+        .btn-scan {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            background: #10b981;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        .btn-scan:hover { background: #059669; }
+
+        /* Painel de Dados (Direita) */
+        .data-section {
+            background: #1f2937;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .data-card {
+            background: #111827;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .data-card span { display: block; color: #9ca3af; font-size: 14px; text-transform: uppercase; }
+        .data-card strong { font-size: 20px; color: #fff; }
+
+        .status-badge {
+            margin-top: auto;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            border-radius: 6px;
+            text-transform: uppercase;
+            background: #374151;
+            color: #9ca3af;
+        }
+
+        .status-concedido { background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #10b981; }
+        .status-negado { background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #ef4444; }
+
+        /* Relatórios (Rodapé) */
+        .logs-section {
+            grid-column: 1 / -1;
+            background: #1f2937;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .logs-section h3 { color: #9ca3af; margin-bottom: 10px; }
+        
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 10px; border-bottom: 1px solid #374151; }
+        th { color: #10b981; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <!-- Cabeçalho -->
+    <div class="header">
+        <div>
+            <h1>Ministério do Meio Ambiente</h1>
+            <p style="color: #ef4444; font-weight: 600;">ALERTA: Setor de Toxinas - Segurança Máxima</p>
+        </div>
+        <div style="font-size: 20px; font-weight: bold; color: #3b82f6;">SISTEMA ONLINE</div>
+    </div>
+
+    <!-- Câmera -->
+    <div class="camera-section">
+        <div class="camera-wrapper">
+            <video id="videoElement" autoplay playsinline></video>
+        </div>
+        <button class="btn-scan" id="btnAutenticar">Iniciar Autenticação</button>
+    </div>
+
+    <!-- Dados do Usuário Reconhecido -->
+    <div class="data-section">
+        <h2 style="color: #fff; border-bottom: 1px solid #374151; padding-bottom: 10px;">Perfil Identificado</h2>
+        
+        <div class="data-card">
+            <span>Nome do Funcionário</span>
+            <strong id="uiNome">Aguardando escaneamento...</strong>
+        </div>
+        
+        <div class="data-card" style="border-left-color: #f59e0b;">
+            <span>Cargo / Nível de Acesso</span>
+            <strong id="uiNivel">--</strong>
+        </div>
+
+        <div class="status-badge" id="uiStatus">
+            Sistema em Espera
+        </div>
+    </div>
+
+    <!-- Relatório de Acessos Recentes -->
+    <div class="logs-section">
+        <h3>Histórico de Monitoramento (Relatório em Tempo Real)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Horário</th>
+                    <th>Usuário</th>
+                    <th>Nível de Permissão</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaLogs">
+                <tr>
+                    <td>--:--</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    const video = document.getElementById('videoElement');
+    navigator.mediaDevices.getUserMedia({ video: true }).then(s => video.srcObject = s).catch(e => console.log(e));
+
+    // Simulação do Python mandando os dados para a interface
+    document.getElementById('btnAutenticar').addEventListener('click', () => {
+        document.getElementById('uiStatus').innerText = "Analisando Rosto...";
+        document.getElementById('uiStatus').className = "status-badge";
+        
+        setTimeout(() => {
+            // Preenchendo os dados (isso virá do Python depois)
+            document.getElementById('uiNome').innerText = "Eduardo Peixoto";
+            document.getElementById('uiNivel').innerText = "Ministro (Nível 3)";
+            
+            let statusEl = document.getElementById('uiStatus');
+            statusEl.innerText = "ACESSO CONCEDIDO";
+            statusEl.className = "status-badge status-concedido";
+
+            // Adicionando no relatório da tabela inferior
+            let tabela = document.getElementById('tabelaLogs');
+            tabela.innerHTML = `<tr>
+                <td>Agora</td>
+                <td>Eduardo Peixoto</td>
+                <td>Nível 3 (Ministro)</td>
+                <td style="color: #10b981; font-weight: bold;">Liberado</td>
+            </tr>` + tabela.innerHTML;
+        }, 1500);
+    });
+</script>
+
+</body>
+</html>
