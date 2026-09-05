@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,21 +16,72 @@
       <div class="menu">
         <ul>
           <li><a href="#">Admin</a></li>
-          <li><a href="#">Acessar Cofre</a></li>
+          <li><a href="./index.html">Acessar Cofre</a></li>
         </ul>
       </div>
     </header>
     </div>
     <main>
       <section class="painel">
-        <div class="video-container">
-          <div class="video">
-          </div>
-        </div>
-        <div class="perfil-container">
-          <div class="perfil"></div>
-        </div>
+        <article class="painel-info">
+            <div class="painel-info-t">
+                <h1>Ministério do Meio Ambiente</h1>
+                <p>Alerta: Setor de Toxinas - Segurança Máxima</p>
+            </div>
+            <div class="painel-info-on">
+                <h2>Sistema Online</h2>
+            </div>
+        </article>
+        <article class="box-principal">
+            <div class="video-box">
+                <div class="video">
+                    <video id="videoElement" autoplay playsinline></video>
+                </div>
+                <button id="btnAutenticar">Iniciar Autenticação</button>
+            </div>
+            <div class="perfil-box">
+                <div class="perfil-t">
+                    <h1>Perfil Identificado</h1>
+                </div>
+                <div class="perfil-info">
+                    <span>Nome do Funcionário</span>
+                    <p id="Nome"><strong>Aguardando escaneamento...</strong></p>
+                </div>
+                <div class="perfil-info">
+                    <span>Cargo / Nível de acesso</span>
+                    <p id="Nivel"><strong>--</strong></p>
+                </div>
+                <div class="espera">
+                    <p>Sistema em Espera</p>
+                </div>
+            </div>
+        </article>
+        <article class="log">
+            <h3>Último acesso (Tempo Real)</h3>
+            <table id="tabelaLogs">
+                <thead>
+                    <tr>
+                        <th>Horário</th>
+                        <th>Usuário</th>
+                        <th>Nível de Acesso</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>----</td>
+                        <td>----</td>
+                        <td>----</td>
+                        <td>----</td>
+                    </tr>
+                </tbody>
+            </table>
+        </article>
       </section>
     </main>
+    <footer class="footer">
+        <h1>@BIOsec. Direitos Reservados</h1>
+    </footer>
+    <script src="./assets/js/script.js"></script>
   </body>
 </html>
