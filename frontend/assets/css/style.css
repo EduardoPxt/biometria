@@ -207,6 +207,12 @@ th, td{
 
 .footer{
     text-align: center;
-    background-color: #111622;
-    color: #babbbb;
+  color: #babbbb;
+  background-color: #111622;
+  margin-top: 30px;
+  padding: 40px 20px;
+}
+
+.footer span{
+    color:  #10b981;
 }
