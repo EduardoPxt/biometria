@@ -59,6 +59,7 @@ body{
     text-decoration: none;
     border-radius: 10px;
     transition: 0.3s ease;
+    
 }
 
 .menu li a:hover{
@@ -231,6 +232,20 @@ th, td{
 
 .footer span{
     color:  #10b981;
+}
+
+@media (max-width: 375px){
+    .logo{
+        font-size: 1.2em;
+    }
+
+    .menu li{
+        margin: 0 5px;
+    }
+    
+    .footer{
+        font-size: .7em;
+    }
 }
 
 /* pagina admin*/
