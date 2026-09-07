@@ -250,11 +250,15 @@ td {
 
 @media (max-width: 375px) {
   .logo {
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
 
   .menu li {
     margin: 0 5px;
+  }
+
+  .menu li a{
+    padding: 6px;
   }
 
   .footer {
