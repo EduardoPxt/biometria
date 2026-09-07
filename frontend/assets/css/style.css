@@ -249,17 +249,22 @@ td {
 }
 
 @media (max-width: 375px) {
-  .logo {
-    font-size: 1.1em;
-  }
-
-  .menu li {
+  
+    .logo{
+        font-size: 1.3em;
+    }
+  
+    .menu li {
     margin: 0 5px;
   }
 
   .menu li a{
     padding: 6px;
   }
+
+  .painel-info-t h1 {
+  font-size: 1.5em;
+}
 
   .footer {
     font-size: 0.7em;
