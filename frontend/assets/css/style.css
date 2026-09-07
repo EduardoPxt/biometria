@@ -14,6 +14,8 @@ body{
     min-height: 100vh;
 }
 
+/* pagina cadastro*/
+
 .bg-header{
   background-color: #111622;
 }
@@ -130,6 +132,7 @@ main{
 video{
     width: 100%; 
     height: 100%; object-fit: cover; opacity: 0.8; 
+    border-radius: 10px;
 }
 
 .video-box button{
@@ -229,3 +232,6 @@ th, td{
 .footer span{
     color:  #10b981;
 }
+
+/* pagina admin*/
+
