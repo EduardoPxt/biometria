@@ -7,7 +7,7 @@ navigator.mediaDevices
 // Simulação do Python mandando os dados para a interface
 document.getElementById("btnAutenticar").addEventListener("click", () => {
   document.getElementById("uiStatus").innerText = "Analisando Rosto...";
-  document.getElementById("uiStatus").className = "status-badge";
+  document.getElementById("uiStatus").className = "espera";
 
   setTimeout(() => {
     // Preenchendo os dados (isso virá do Python depois)
@@ -16,7 +16,7 @@ document.getElementById("btnAutenticar").addEventListener("click", () => {
 
     let statusEl = document.getElementById("uiStatus");
     statusEl.innerText = "ACESSO CONCEDIDO";
-    statusEl.className = "status-badge status-concedido";
+    statusEl.className = "espera status-concedido";
 
     // Adicionando no relatório da tabela inferior
     let tabela = document.getElementById("tabelaLogs");
