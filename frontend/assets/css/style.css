@@ -73,3 +73,70 @@ body{
 .nav-container a:hover{
   background-color: #059669;
 }
+
+.container{
+  background-color: #111622;
+  max-width: 960px;
+  margin: 20px auto;
+  padding: 0 15px;
+  border-radius: 10px;
+}
+
+.info{
+  max-width: 960px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px 0;
+  border-bottom: 1px solid #4b5563;
+}
+
+.info-texto h2{
+  font-size: 1.5em;
+  color: #babbbb;
+  margin-bottom: 5px;
+}
+
+.info-texto p{
+  font-size: 1.1em;
+  color: #10b981;
+  margin-bottom: 5px;
+}
+
+.online{
+  font-weight: bold;
+  color: #10b981;
+}
+
+.painel{
+  display: flex;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+footer{
+  background-color: #111622;
+  text-align: center;
+}
+
+footer span{
+  color: #10b981;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+footer p{
+  font-size: 1.2em;
+  color: #babbbb;
+}
