@@ -44,14 +44,14 @@
             <h2>Perfil Identificado</h2>
             <div class="caixa-info">
               <span>Nome do Funcionario</span>
-              <p>Aguardando escaneamento...</p>
+              <p id="Nome">Aguardando escaneamento...</p>
             </div>
             <div class="caixa-info">
               <span>Cargo / Nivel de acesso</span>
-              <p>--</p>
+              <p id="Nivel">--</p>
             </div>
           </div>
-          <div class="sistema">
+          <div class="sistema" id="uiStatus">
             <p>Sistema em Espera</p>
           </div>
         </div>
@@ -59,7 +59,7 @@
       <section class="acessos-container">
         <div class="acessos">
             <h2>Ultimo acesso (Tempo Real)</h2>
-            <table>
+            <table id="tabelaLogs">
                 <thead>
                     <th>Horario</th>
                     <th>Usuario</th>
@@ -67,12 +67,6 @@
                     <th>Status</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
-                    </tr>
                     <tr>
                         <td>--</td>
                         <td>--</td>
