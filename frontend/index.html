@@ -1,50 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap">
-    <link rel="stylesheet" href="./assets/css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <title>BIOsec</title>
-</head>
-<body>
+  </head>
+  <body>
     <header class="menu-bg">
-        <div class="menu">
-            <div class="logo">
-                <h1>BIOsec</h1>
-            </div>
-            <nav class="nav-container">
-                <ul>
-                    <li><a href="index.html">Acessar Cofre</a></li>
-                    <li><a href="admin.html">Admin</a></li>
-                </ul>
-            </nav>
+      <div class="menu">
+        <div class="logo">
+          <h1>BIOsec</h1>
         </div>
+        <nav class="nav-container">
+          <ul>
+            <li><a href="index.html">Acessar Cofre</a></li>
+            <li><a href="admin.html">Admin</a></li>
+          </ul>
+        </nav>
+      </div>
     </header>
     <main class="container">
-        <section class="info">
-            <div class="info-texto">
-                <h2>Ministerio do Meio ambiente</h2>
-                <p>Alerta: Setor de Toxinas - Segurança Máxima</p>
+      <section class="info">
+        <div class="info-texto">
+          <h2>Ministerio do Meio ambiente</h2>
+          <p>Alerta: Setor de Toxinas - Segurança Máxima</p>
+        </div>
+        <p class="online">Sitema Online</p>
+      </section>
+      <section class="painel">
+        <div class="video-container">
+          <div class="video-box">
+            <video id="videoElement" autoplay playsinline></video>
+          </div>
+          <button id="btnAutenticar">Iniciar Autenticação</button>
+        </div>
+        <div class="perfil-container">
+          <div class="perfil-info">
+            <h2>Perfil Identificado</h2>
+            <div class="caixa-info">
+              <span>Nome do Funcionario</span>
+              <p>Aguardando escaneamento...</p>
             </div>
-            <p class="online">Sitema Online</p>
-        </section>
-        <section class="painel">
-            <div class="video-container">
-                <video src=""></video>
-                <button class="auntentic">
-                    Iniciar Autenticação
-                </button>
+            <div class="caixa-info">
+              <span>Cargo / Nivel de acesso</span>
+              <p>--</p>
             </div>
-            <div class="perfil-contaienr">
-                <h3>
-                    
-                </h3>
-            </div>
-        </section>
+          </div>
+          <div class="sistema">
+            <p>Sistema em Espera</p>
+          </div>
+        </div>
+      </section>
+      <section class="acessos-container">
+        <div class="acessos">
+            <h2>Ultimo acesso (Tempo Real)</h2>
+            <table>
+                <thead>
+                    <th>Horario</th>
+                    <th>Usuario</th>
+                    <th>Nivel de Acesso</th>
+                    <th>Status</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                    </tr>
+                    <tr>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </section>
     </main>
     <footer>
-        <p><span>@BIOsec.</span> Direitos Reservados</p>
+      <p><span>@BIOsec.</span> Direitos Reservados</p>
     </footer>
-</body>
+    <script src="assets/js/script.js"></script>
+  </body>
 </html>

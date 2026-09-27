@@ -2,14 +2,13 @@
 
 :root{
   /* Cores */
-  --cor-body:#0b0f19;
+  --cor-body--:#0b0f19;
   --cor-header:#111622;
   --verde-primario: #10b981;
   --hover-primario: #059669;
   --cor-badge: #4b5563;
-  --liberado: #babbbb;
-  --borda-liberado: background: rgba(16, 185, 129, 0.2);
-  --negado: background: rgba(239, 68, 68, 0.2);
+  --borda-liberado:rgba(16, 185, 129, 0.2);
+  --negado:rgba(239, 68, 68, 0.2);
   --borda-negado: #ef4444;
   --tabela: #1f2937;
   --tabela-grade: #374151;
@@ -64,10 +63,10 @@ body{
   color: #fff;
   text-decoration: none;
   padding: 8px;
-  border-radius: 10px;
-  font-size: 1.1em;
+  border-radius: 8px;
+  font-size: 1em;
   font-weight: bold;
-  transition: 0.5s ease;
+  transition: 0.3s ease;
 }
 
 .nav-container a:hover{
@@ -78,8 +77,8 @@ body{
   background-color: #111622;
   max-width: 960px;
   margin: 20px auto;
-  padding: 0 15px;
-  border-radius: 10px;
+  padding: 15px 15px;
+  border-radius: 8px;
 }
 
 .info{
@@ -88,7 +87,7 @@ body{
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  padding: 10px 0;
+  padding-bottom: 10px;
   border-bottom: 1px solid #4b5563;
 }
 
@@ -99,7 +98,7 @@ body{
 }
 
 .info-texto p{
-  font-size: 1.1em;
+  font-size: 1em;
   color: #10b981;
   margin-bottom: 5px;
 }
@@ -111,32 +110,166 @@ body{
 
 .painel{
   display: flex;
+  max-width: 960px;
+  padding: 20px 0;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
+.video-container{
+  flex: 1 1 260px;
+  display: flex;
+  flex-direction: column;
+  background-color: #1f2937;
+  padding: 10px;
+  border-radius: 8px;
+}
 
+.video-box{
+  flex: 1;
+  background-color: #000;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
 
+.video-box video{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  border-radius: 10px;
+}
 
+.video-container button{
+  background-color: #10b981;
+  border: none;
+  border-radius: 8px;
+  padding: 17px;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
 
+.video-container button:hover{
+  background-color: #059669;
+}
 
+.perfil-container{
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 260px;
+  background-color: #1f2937;
+  border-radius: 8px;
+  padding: 10px;
+}
 
+.perfil-info{
+  flex: 1;
+}
 
+.perfil-info h2{
+  color: #babbbb;
+  border-bottom: 1px solid #4b5563;
+  padding-bottom: 10px;
+}
 
+.caixa-info{
+  flex: 1;
+  background-color: #111622;
+  border-radius: 8px;
+  border-left: 3px solid #10b981;
+  margin-top: 15px;
+  padding: 15px 10px;
+}
 
+.caixa-info span{
+  font-size: 0.9em;
+  color: #babbbb;
+}
 
+.caixa-info p{
+  color: #fff;
+  font-weight: bold;
+}
 
+.sistema{
+  text-align: center;
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1em;
+  background-color: #4b5563;
+  color: #babbbb;
+}
+
+.negado{
+  text-align: center;
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1em;
+  background-color: var(--negado);
+  border: 1px solid var(--borda-negado);
+  color: #ef4444;
+}
+
+.liberado{
+  text-align: center;
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1em;
+  background-color: var(--borda-liberado);
+  border: 1px solid #10b981;
+  color: #10b981;
+}
+
+.acessos-container{
+  max-width: 960px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #1f2937;
+}
+
+.acessos h2{
+  color: #babbbb;
+  font-size: 1.3em;
+}
+
+.acessos table{
+  width: 100%;
+  text-align: left;
+  color: #fff;
+}
+
+.acessos table th{
+  color: #10b981;
+}
+
+.acessos table th,td{
+  padding: 10px 0px;
+  border-bottom: 1px solid #374151;
+}
 
 footer{
+  padding: 20px;
   background-color: #111622;
   text-align: center;
 }
 
 footer span{
   color: #10b981;
-  font-size: 1.3em;
+  font-size: 2em;
   font-weight: bold;
 }
 
 footer p{
-  font-size: 1.2em;
+  font-size: 1.4em;
   color: #babbbb;
 }
