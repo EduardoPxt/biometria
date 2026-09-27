@@ -147,8 +147,9 @@ body{
   padding: 17px;
   color: #fff;
   text-transform: uppercase;
-  font-size: 0.9em;
+  font-size: 0.8em;
   font-weight: bold;
+  font-family: 'Rajdhani' Arial, Helvetica, sans-serif;
   cursor: pointer;
   transition: 0.3s ease;
 }
@@ -258,7 +259,7 @@ body{
 }
 
 footer{
-  padding: 20px;
+  padding: 15px;
   background-color: #111622;
   text-align: center;
 }
