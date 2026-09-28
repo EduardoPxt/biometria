@@ -1,3 +1,4 @@
 Flask==3.0.0
 opencv-python
 face-recognition
+mysql-connector-python

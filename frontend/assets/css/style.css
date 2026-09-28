@@ -35,6 +35,7 @@ body{
 
 .menu-bg{
   background-color: #111622;
+  margin-bottom: 15px;
 }
 
 .menu{
@@ -262,6 +263,7 @@ body{
 }
 
 footer{
+  margin-top: 15px;
   padding: 15px;
   background-color: #111622;
   text-align: center;
@@ -277,3 +279,7 @@ footer p{
   font-size: 1.4em;
   color: #babbbb;
 }
+
+
+/* ADMIN */
+
