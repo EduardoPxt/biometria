@@ -3,7 +3,7 @@ import base64
 import os
 import uuid
 import reconhecimento  # Importamos o arquivo inteiro para podermos recarregar as fotos depois
-from database import obter_logs, cadastrar_usuario
+from database import obter_logs, cadastrar_usuario, obter_usuarios, atualizar_usuario, excluir_usuario
 
 app = Flask(__name__, template_folder='../frontend', static_folder='../frontend/assets')
 
@@ -69,6 +69,34 @@ def api_cadastrar():
     # Faz a IA ler a pasta novamente para aprender o rosto na hora
     reconhecimento.carregar_rostos()
     
+    return jsonify({"status": "sucesso"})
+
+@app.route('/api/usuarios', methods=['GET'])
+def api_listar_usuarios():
+    """Devolve a lista de todos os utilizadores para a tabela do Admin"""
+    usuarios = obter_usuarios()
+    return jsonify(usuarios)
+
+@app.route('/api/usuario/<int:id_usuario>', methods=['DELETE'])
+def api_excluir_usuario(id_usuario):
+    """Exclui o utilizador e a foto da pasta"""
+    arquivo_foto = excluir_usuario(id_usuario)
+    
+    # Apaga a imagem fisicamente do computador
+    if arquivo_foto:
+        caminho = os.path.join("backend/rostos_autorizados", arquivo_foto)
+        if os.path.exists(caminho):
+            os.remove(caminho)
+            
+    reconhecimento.carregar_rostos() # Atualiza a IA
+    return jsonify({"status": "sucesso"})
+
+@app.route('/api/usuario/<int:id_usuario>', methods=['PUT'])
+def api_editar_usuario(id_usuario):
+    """Atualiza os dados de um utilizador"""
+    dados = request.get_json()
+    atualizar_usuario(id_usuario, dados['nome'], dados['nivel'])
+    reconhecimento.carregar_rostos() # Atualiza a IA
     return jsonify({"status": "sucesso"})
 
 if __name__ == '__main__':

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>BIOsec - adm</title>
@@ -32,20 +33,46 @@
       <section class="painel">
         <div class="video-container">
           <div class="video-box">
-            <video id="videoElement" autoplay playsinline></video>
+            <video id="videoAdmin" autoplay playsinline></video>
           </div>
           <form class="form" action="" method="post">
             <label for="nome">Nome do Funcionário</label>
-            <input type="text" name="nomef" id="nomef">
+            <input type="text" name="inputNome" id="inputNome" placeholder="Nome Completo">
             <label for="nome">Nível de Acesso</label>
-            <select name="nivel" id="nivel">
+            <select name="nivel" id="selectNivel">
               <option value="1">Gerente</option>
               <option value="2">Diretor</option>
               <option value="3">Ministro</option>
             </select>
+            <button class="btnCadastrar" id="btnCadastrar">Cadastrar</button>
           </form>
+        </div>
+        <div class="logs-container">
+          <div class="acessos logs">
+            <h2>Funcionários Cadastrados</h2>
+            <table id="tabelaLogs">
+                <thead>
+                    <th>Id</th>
+                    <th>Usuario</th>
+                    <th>Nivel de Acesso</th>
+                    <th>Ações</th>
+                </thead>
+                <tbody id="tabelaUsuarios">
+                    <tr>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
         </div>
       </section>
     </main>
+    <footer>
+      <p><span>@BIOsec.</span> Direitos Reservados</p>
+    </footer>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>

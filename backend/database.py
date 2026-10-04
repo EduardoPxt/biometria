@@ -51,3 +51,34 @@ def cadastrar_usuario(nome, nivel_acesso, arquivo_foto):
     conexao.commit()
     cursor.close()
     conexao.close()   
+
+def atualizar_usuario(id_usuario, nome, nivel):
+    """Atualiza o nome e o nível de um utilizador existente"""
+    conexao = conectar()
+    cursor = conexao.cursor()
+    cursor.execute("UPDATE usuarios SET nome = %s, nivel_acesso = %s WHERE id = %s", (nome, nivel, id_usuario))
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def excluir_usuario(id_usuario):
+    """Exclui um utilizador e desvincula os seus registos de acesso"""
+    conexao = conectar()
+    cursor = conexao.cursor()
+    
+    # 1. Desvincula o ID nos relatórios (para não dar erro no MySQL)
+    cursor.execute("UPDATE acessos_log SET usuario_id = NULL WHERE usuario_id = %s", (id_usuario,))
+    
+    # 2. Descobre qual é a foto para podermos apagá-la da pasta
+    cursor.execute("SELECT arquivo_foto FROM usuarios WHERE id = %s", (id_usuario,))
+    resultado = cursor.fetchone()
+    arquivo = resultado[0] if resultado else None
+    
+    # 3. Apaga o utilizador definitivamente
+    cursor.execute("DELETE FROM usuarios WHERE id = %s", (id_usuario,))
+    
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+    
+    return arquivo
