@@ -1,17 +1,16 @@
 // ==========================================================
-// LÓGICA DA PÁGINA INICIAL (Autenticação no Cofre)
+// 1. LÓGICA DA PÁGINA INICIAL (Autenticação e Logs)
 // ==========================================================
 
 const video = document.getElementById("videoElement");
-if (video) { // Só liga esta câmera se o vídeo da página inicial existir
-    navigator.mediaDevices
-      .getUserMedia({ video: true })
+if (video) {
+    navigator.mediaDevices.getUserMedia({ video: true })
       .then((s) => (video.srcObject = s))
       .catch((e) => console.log(e));
 }
 
 const btnAutenticar = document.getElementById("btnAutenticar");
-if (btnAutenticar) { // Só adiciona o evento se o botão de autenticar existir
+if (btnAutenticar) {
     btnAutenticar.addEventListener("click", () => {
         document.getElementById("uiStatus").innerText = "Analisando Rosto...";
         document.getElementById("uiStatus").className = "sistema";
@@ -22,12 +21,10 @@ if (btnAutenticar) { // Só adiciona o evento se o botão de autenticar existir
         const ctx = canvas.getContext("2d");
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        const imageData = canvas.toDataURL("image/jpeg");
-
         fetch("/autenticar", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ image: imageData })
+            body: JSON.stringify({ image: canvas.toDataURL("image/jpeg") })
         })
         .then(response => response.json())
         .then(data => {
@@ -38,17 +35,6 @@ if (btnAutenticar) { // Só adiciona o evento se o botão de autenticar existir
                 let statusEl = document.getElementById("uiStatus");
                 statusEl.innerText = "ACESSO CONCEDIDO";
                 statusEl.className = "liberado";
-
-                let tabela = document.getElementById("tabelaLogs");
-                if(tabela) {
-                    tabela.innerHTML =
-                        `<tr>
-                            <td>Agora</td>
-                            <td>${data.nome}</td>
-                            <td>${data.nivel_texto}</td>
-                            <td style="color: #10b981; font-weight: bold;">Liberado</td>
-                        </tr>` + tabela.innerHTML;
-                }
             } else {
                 document.getElementById("Nome").innerText = "Desconhecido";
                 document.getElementById("Nivel").innerText = "--";
@@ -57,35 +43,72 @@ if (btnAutenticar) { // Só adiciona o evento se o botão de autenticar existir
                 statusEl.innerText = "ACESSO NEGADO";
                 statusEl.className = "negado";
             }
+            
+            carregarLogsRecentes(); // Atualiza a tabela do Cofre na hora
         })
         .catch((error) => {
-            console.error("Erro na comunicação com o servidor:", error);
+            console.error("Erro no servidor:", error);
             document.getElementById("uiStatus").innerText = "ERRO NO SERVIDOR";
         });
     });
 }
 
+function carregarLogsRecentes() {
+    const tabelaLogs = document.getElementById("tabelaLogs");
+    if (!tabelaLogs) return;
+
+    fetch('/api/logs')
+        .then(res => res.json())
+        .then(logs => {
+            // RECRIAMOS OS CABEÇALHOS AQUI PARA NUNCA SUMIREM
+            tabelaLogs.innerHTML = `
+                <tr>
+                    <th>Data/Hora</th>
+                    <th>Nome do Funcionário</th>
+                    <th>Nível de Acesso</th>
+                    <th>Status</th>
+                </tr>
+            `;
+            
+            const ultimos3 = logs.slice(0, 3);
+            ultimos3.forEach(log => {
+                let corStatus = log.status === 'Liberado' ? '#10b981' : '#ef4444';
+                let dataFormatada = new Date(log.data_hora).toLocaleString('pt-BR');
+
+                tabelaLogs.innerHTML += `
+                    <tr>
+                        <td>${dataFormatada}</td>
+                        <td>${log.nome_tentativa}</td>
+                        <td>${log.nivel_tentativa}</td>
+                        <td style="color: ${corStatus}; font-weight: bold;">${log.status}</td>
+                    </tr>
+                `;
+            });
+        });
+}
+
+if (document.getElementById("tabelaLogs")) carregarLogsRecentes();
+
+
 // ==========================================================
-// LÓGICA DA PÁGINA ADMIN (Cadastro, Edição e Exclusão)
+// 2. LÓGICA DA PÁGINA ADMIN (Cadastro, Tabela e Exclusão)
 // ==========================================================
 
 const videoAdmin = document.getElementById("videoAdmin");
-if (videoAdmin) { // Só liga esta câmera se o vídeo da página de Admin existir
-    navigator.mediaDevices
-        .getUserMedia({ video: true })
+if (videoAdmin) {
+    navigator.mediaDevices.getUserMedia({ video: true })
         .then((s) => (videoAdmin.srcObject = s))
         .catch((e) => console.log(e));
 }
 
 const btnCadastrar = document.getElementById("btnCadastrar");
-if (btnCadastrar) { // Evento do botão de cadastrar
+if (btnCadastrar) {
     btnCadastrar.addEventListener("click", () => {
         const nome = document.getElementById("inputNome").value;
         const nivel = document.getElementById("selectNivel").value; 
         
-        if(!nome || !nivel) return alert("Preencha o nome e selecione o nível.");
+        if(!nome || !nivel) return alert("Preencha o nome e o nível.");
 
-        // Captura a foto da câmera do Admin
         const canvas = document.createElement("canvas");
         canvas.width = videoAdmin.videoWidth;
         canvas.height = videoAdmin.videoHeight;
@@ -100,24 +123,30 @@ if (btnCadastrar) { // Evento do botão de cadastrar
         .then(data => {
             if(data.status === "sucesso") {
                 alert("Funcionário cadastrado com sucesso!");
-                document.getElementById("inputNome").value = ""; // Limpa o campo
-                carregarTabela(); // Atualiza a tabela na hora
-            } else {
-                alert("Erro ao cadastrar.");
+                document.getElementById("inputNome").value = "";
+                carregarTabela(); // Atualiza a tabela do Admin na hora
             }
         });
     });
 }
 
-// Função para buscar os usuários no MySQL e preencher a tabela
 function carregarTabela() {
     const tbody = document.getElementById('tabelaUsuarios');
-    if (!tbody) return; // Se não houver tabela nesta página, não faz nada
+    if (!tbody) return;
 
     fetch('/api/usuarios')
         .then(res => res.json())
         .then(usuarios => {
-            tbody.innerHTML = '';
+            // RECRIAMOS OS CABEÇALHOS DO ADMIN AQUI PARA NUNCA SUMIREM
+            tbody.innerHTML = `
+                <tr>
+                    <th>Id</th>
+                    <th>Usuario</th>
+                    <th>Nivel de Acesso</th>
+                    <th>Ações</th>
+                </tr>
+            `;
+            
             usuarios.forEach(user => {
                 let nivelTexto = user.nivel_acesso === 3 ? "Ministro (Nível 3)" : (user.nivel_acesso === 2 ? "Diretor (Nível 2)" : "Geral (Nível 1)");
                 tbody.innerHTML += `
@@ -126,50 +155,34 @@ function carregarTabela() {
                         <td>${user.nome}</td>
                         <td>${nivelTexto}</td>
                         <td>
-                            <!-- Utilizando as suas classes CSS prontas -->
                             <button class="btnEditar" onclick="editarUsuario(${user.id}, '${user.nome}', ${user.nivel_acesso})"><i class="fa-solid fa-pencil"></i></button>
                             <button class="btnExcluir" onclick="excluirUsuario(${user.id})"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 `;
             });
-        })
-        .catch(err => console.error("Erro ao carregar tabela:", err));
+        });
 }
 
-// Função para Excluir
 function excluirUsuario(id) {
     if(confirm("Tem certeza que deseja excluir este funcionário e sua biometria?")) {
         fetch(`/api/usuario/${id}`, { method: 'DELETE' })
-            .then(res => res.json())
-            .then(data => {
-                if(data.status === "sucesso") carregarTabela();
-            });
+            .then(() => carregarTabela());
     }
 }
 
-// Função para Editar
 function editarUsuario(id, nomeAtual, nivelAtual) {
     const novoNome = prompt("Novo nome:", nomeAtual);
     if(novoNome) {
         const novoNivel = prompt("Novo nível (1=Geral, 2=Diretor, 3=Ministro):", nivelAtual);
-        if(novoNivel && (novoNivel === "1" || novoNivel === "2" || novoNivel === "3")) {
+        if(novoNivel && ["1", "2", "3"].includes(novoNivel)) {
             fetch(`/api/usuario/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ nome: novoNome, nivel: parseInt(novoNivel) })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if(data.status === "sucesso") carregarTabela();
-            });
-        } else if (novoNivel) {
-            alert("Nível inválido. Use 1, 2 ou 3.");
+            }).then(() => carregarTabela());
         }
     }
 }
 
-// Executa automaticamente quando a página carrega
-window.onload = () => {
-    carregarTabela(); // Ele verifica sozinho se a tabela existe antes de rodar
-};
+if (document.getElementById('tabelaUsuarios')) carregarTabela();
