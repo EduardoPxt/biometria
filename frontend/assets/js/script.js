@@ -104,6 +104,7 @@ if (videoAdmin) {
 const btnCadastrar = document.getElementById("btnCadastrar");
 if (btnCadastrar) {
     btnCadastrar.addEventListener("click", () => {
+        
         const nome = document.getElementById("inputNome").value;
         const nivel = document.getElementById("selectNivel").value; 
         
