@@ -44,7 +44,7 @@ if (btnAutenticar) {
                 statusEl.className = "negado";
             }
             
-            carregarLogsRecentes(); // Atualiza a tabela do Cofre na hora
+            carregarLogsRecentes();
         })
         .catch((error) => {
             console.error("Erro no servidor:", error);
@@ -124,7 +124,7 @@ if (btnCadastrar) {
             if(data.status === "sucesso") {
                 alert("Funcionário cadastrado com sucesso!");
                 document.getElementById("inputNome").value = "";
-                carregarTabela(); // Atualiza a tabela do Admin na hora
+                carregarTabela(); 
             }
         });
     });
@@ -137,7 +137,6 @@ function carregarTabela() {
     fetch('/api/usuarios')
         .then(res => res.json())
         .then(usuarios => {
-            // RECRIAMOS OS CABEÇALHOS DO ADMIN AQUI PARA NUNCA SUMIREM
             tbody.innerHTML = `
                 <tr>
                     <th>Id</th>
