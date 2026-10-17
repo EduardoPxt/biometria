@@ -139,12 +139,12 @@ function carregarTabela() {
         .then(res => res.json())
         .then(usuarios => {
             tbody.innerHTML = `
-                <tr>
+                <thead>
                     <th>Id</th>
                     <th>Usuario</th>
                     <th>Nivel de Acesso</th>
                     <th>Ações</th>
-                </tr>
+                </thead>
             `;
             
             usuarios.forEach(user => {
